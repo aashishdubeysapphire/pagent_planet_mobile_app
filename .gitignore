@@ -76,3 +76,6 @@ gifter-chat-3.2.2.md
 .env*
 
 /android/gradle.properties
+/android/app/google-services.json
+/ios/GoogleService/
+/ios/GoogleService-Info.plist
