@@ -1,0 +1,38 @@
+buildscript {
+    ext {
+        buildToolsVersion = "36.0.0"
+        minSdkVersion = 26
+        compileSdkVersion = 36
+        targetSdkVersion = 36
+        ndkVersion = "27.1.12297006"
+        kotlinVersion = "2.1.20"
+    }
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://cardinalcommerceprod.jfrog.io/artifactory/android"
+        }
+    }
+    subprojects {
+        repositories {
+            maven {
+                url "https://cardinalcommerceprod.jfrog.io/artifactory/android"
+                credentials {
+                    username = project.findProperty("artifactoryUser") ?: ""
+                    password = project.findProperty("artifactoryApiKey") ?: ""
+                }
+            }
+        }
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
+        classpath 'com.google.firebase:perf-plugin:1.4.2'
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"

@@ -1,0 +1,88 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+# Add these lines for @react-native-firebase (required for v15+ / Firebase iOS SDK v9+)
+use_frameworks! :linkage => :static
+$RNFirebaseAsStaticFramework = true
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'pageantplanet' do
+  config = use_native_modules!
+  pod 'Braintree'
+  pod 'BraintreeDropIn', '9.14.0'
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+  # Keep your existing manual pods (these help with modular headers for static linking)
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'nanopb', :modular_headers => true
+  pod 'GoogleDataTransport', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
+  pod 'FirebaseABTesting', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['CLANG_WARN_DEPRECATED_OBJC_USAGE'] = 'NO'
+        config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+        if target.name == 'fmt'
+          config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+
+      # IQKeyboardManagerSwift copies PrivacyInfo.xcprivacy into the app root, which
+      # conflicts with the app target's own PrivacyInfo.xcprivacy (Xcode 15+).
+      if target.name == 'IQKeyboardManagerSwift'
+        target.resources_build_phase.files.each do |resource|
+          path = resource.file_ref&.path
+          target.resources_build_phase.remove_build_file(resource) if path&.end_with?('PrivacyInfo.xcprivacy')
+        end
+      end
+    end
+
+    # Xcode 26.4: fmt 11.0.2 consteval breaks on Apple Clang 21 (RN #55601).
+    fmt_base = File.join(installer.sandbox.root, 'fmt', 'include', 'fmt', 'base.h')
+    if File.exist?(fmt_base)
+      File.chmod(0o644, fmt_base) if (File.stat(fmt_base).mode & 0o200).zero?
+      content = File.read(fmt_base)
+      unless content.include?('Xcode 26 fmt workaround')
+        patched = content.sub(
+          "#elif defined(__cpp_consteval)\n#  define FMT_USE_CONSTEVAL 1",
+          "#elif defined(__cpp_consteval)\n// Xcode 26 fmt workaround\n#  define FMT_USE_CONSTEVAL 0"
+        ).sub(
+          "#elif FMT_GCC_VERSION >= 1002 || FMT_CLANG_VERSION >= 1101\n#  define FMT_USE_CONSTEVAL 1",
+          "#elif FMT_GCC_VERSION >= 1002 || FMT_CLANG_VERSION >= 1101\n// Xcode 26 fmt workaround\n#  define FMT_USE_CONSTEVAL 0"
+        )
+        File.write(fmt_base, patched) if patched != content
+      end
+    end
+
+    # CocoaPods generates these as executable; keep them runnable after any edits.
+    Dir.glob(File.join(installer.sandbox.root, 'Target Support Files', '**', '*.sh')).each do |script|
+      File.chmod(0o755, script)
+    end
+  end
+end

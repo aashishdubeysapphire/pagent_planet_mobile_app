@@ -1,0 +1,171 @@
+import {StyleSheet} from 'react-native';
+import {color} from '../../../assets/colorConstant';
+import {CommonStyles} from '../../../assets/commonStyles';
+import {moderateScale, moderateScaleVertical} from '../../utils/responsiveSize';
+
+export const styles = StyleSheet.create({
+  emptyContainer: {
+    flex: 1,
+    marginBottom: moderateScaleVertical(-20),
+    backgroundColor: color.WHITE,
+  },
+
+  roleContainer: {
+    minHeight: moderateScaleVertical(50),
+    alignItems: 'center',
+    paddingTop: moderateScaleVertical(16),
+  },
+  loadMore: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    minHeight: moderateScaleVertical(30),
+    maxHeight: moderateScaleVertical(30),
+    justifyContent: 'center',
+  },
+  staticHeight: {
+    height: moderateScaleVertical(300),
+  },
+  roleItemContainer2: {
+    backgroundColor: color.S_GRAY_2,
+    marginStart: moderateScaleVertical(16),
+    borderRadius: moderateScaleVertical(20),
+    paddingEnd: moderateScaleVertical(16),
+    paddingStart: moderateScaleVertical(16),
+    paddingBottom: moderateScaleVertical(8),
+    paddingTop: moderateScaleVertical(8),
+  },
+  roleMiddleItemContainer1: {
+    backgroundColor: color.S_GRAY_2,
+    marginStart: moderateScaleVertical(8),
+    borderRadius: moderateScaleVertical(20),
+    paddingEnd: moderateScaleVertical(16),
+    paddingStart: moderateScaleVertical(16),
+    paddingBottom: moderateScaleVertical(8),
+    paddingTop: moderateScaleVertical(8),
+  },
+  roleTextStyles2: {
+    ...CommonStyles.latoBoldBlack12,
+    lineHeight: moderateScaleVertical(15),
+  },
+  inputBoxComtainer: {
+    flexDirection: 'row',
+    paddingEnd: moderateScaleVertical(8),
+  },
+  searchBOx: {
+    borderColor: color.S_GRAY_2,
+    backgroundColor: color.S_GRAY_1,
+    borderWidth: 1,
+    borderRadius: moderateScaleVertical(22),
+    flexDirection: 'row',
+    width: '85%',
+    marginEnd: moderateScaleVertical(10),
+    marginStart: moderateScaleVertical(16),
+    marginTop: moderateScaleVertical(16),
+    maxHeight: moderateScaleVertical(44),
+    minHeight: moderateScaleVertical(44),
+    marginBottom: moderateScaleVertical(16),
+  },
+  searchBoxActive: {
+    borderColor: color.S_GRAY_2,
+    backgroundColor: color.WHITE,
+    borderWidth: 1,
+    width: '85%',
+    borderRadius: moderateScaleVertical(22),
+    flexDirection: 'row',
+    marginEnd: moderateScaleVertical(10),
+    marginStart: moderateScaleVertical(16),
+    marginTop: moderateScaleVertical(16),
+    maxHeight: moderateScaleVertical(44),
+    minHeight: moderateScaleVertical(44),
+    marginBottom: moderateScaleVertical(16),
+  },
+  searchTextinput: {
+    flex: 1,
+    paddingStart: moderateScale(18),
+    paddingVertical: moderateScaleVertical(12),
+    ...CommonStyles.tpp_p2,
+    color: color.BLACK,
+  },
+  searchImage: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 'auto',
+    marginStart: moderateScaleVertical(14),
+    marginRight: moderateScale(18),
+  },
+  hintTextContainer: {
+    ...CommonStyles.tpp_p3,
+    color: color.S_GRAY_4,
+    marginBottom: moderateScaleVertical(16),
+    lineHeight: moderateScaleVertical(16),
+    alignSelf: 'center',
+    textTransform: 'capitalize',
+  },
+  hintSearchTextContainer: {
+    ...CommonStyles.tpp_s2,
+    color: color.BLACK,
+    textTransform: 'capitalize',
+    lineHeight: moderateScaleVertical(16),
+  },
+  searchListContainer: {
+    flex: 1,
+    height: 600,
+  },
+  filterButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginEnd: moderateScaleVertical(10),
+  },
+
+  filterTextContainer: {
+    ...CommonStyles.latoBoldPink14,
+    fontWeight: '700',
+    color: color.INPUT_TEXT,
+    marginStart: moderateScaleVertical(8),
+    lineHeight: moderateScaleVertical(17),
+  },
+  filterButtonDividerContainer: {
+    height: moderateScaleVertical(30),
+    borderTopRightRadius: moderateScaleVertical(20),
+    backgroundColor: color.S_GRAY_3,
+    alignSelf: 'center',
+    width: moderateScaleVertical(1),
+  },
+  bottomFilterContainer: {
+    alignSelf: 'center',
+  },
+  bottomFilterShadowContainer: {
+    height: moderateScaleVertical(62),
+    borderTopLeftRadius: moderateScaleVertical(20),
+    borderTopRightRadius: moderateScaleVertical(20),
+    backgroundColor: color.shadow,
+    justifyContent: 'flex-end',
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+  },
+  filterAppliedCircleContainer: {
+    height: moderateScaleVertical(6),
+    width: moderateScaleVertical(6),
+    marginEnd: moderateScaleVertical(2),
+    borderRadius: moderateScaleVertical(6),
+    backgroundColor: color.P_PINK,
+    alignSelf: 'center',
+  },
+  gap: {
+    height: moderateScaleVertical(6),
+    width: moderateScaleVertical(6),
+    marginEnd: moderateScaleVertical(2),
+    borderRadius: moderateScaleVertical(6),
+    alignSelf: 'center',
+  },
+  categoryShimmer: {
+    marginTop: moderateScaleVertical(135),
+  },
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+});

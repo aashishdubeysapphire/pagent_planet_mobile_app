@@ -1,0 +1,54 @@
+diff --git a/node_modules/react-native-gifted-chat/src/GiftedChat/index.tsx b/node_modules/react-native-gifted-chat/src/GiftedChat/index.tsx
+index 931f111..f66fc9f 100644
+--- a/node_modules/react-native-gifted-chat/src/GiftedChat/index.tsx
++++ b/node_modules/react-native-gifted-chat/src/GiftedChat/index.tsx
+@@ -10,6 +10,8 @@ import {
+   View,
+   LayoutChangeEvent,
+   useColorScheme,
++  KeyboardAvoidingView,
++  Platform,
+ } from 'react-native'
+ import {
+   ActionSheetProvider,
+@@ -19,7 +21,6 @@ import {
+ import dayjs from 'dayjs'
+ import localizedFormat from 'dayjs/plugin/localizedFormat'
+ import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler'
+-import { KeyboardAvoidingView, KeyboardProvider } from 'react-native-keyboard-controller'
+ import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context'
+ import { TEST_ID } from '../Constant'
+ import { GiftedChatContext } from '../GiftedChatContext'
+@@ -292,7 +293,7 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
+         >
+           {/* @ts-expect-error */}
+           <KeyboardAvoidingView
+-            behavior='translate-with-padding'
++            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+             keyboardVerticalOffset={insets.top}
+             style={stylesCommon.fill}
+             {...props.keyboardAvoidingViewProps}
+@@ -316,21 +317,12 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
+ }
+ 
+ function GiftedChatWrapper<TMessage extends IMessage = IMessage> (props: GiftedChatProps<TMessage>) {
+-  const {
+-    keyboardProviderProps,
+-    ...rest
+-  } = props
++  const { ...rest } = props
+ 
+   return (
+     <GestureHandlerRootView style={styles.fill}>
+       <SafeAreaProvider>
+-        <KeyboardProvider
+-          statusBarTranslucent
+-          navigationBarTranslucent
+-          {...keyboardProviderProps}
+-        >
+-          <GiftedChat<TMessage> {...rest} />
+-        </KeyboardProvider>
++        <GiftedChat<TMessage> {...rest} />
+       </SafeAreaProvider>
+     </GestureHandlerRootView>
+   )

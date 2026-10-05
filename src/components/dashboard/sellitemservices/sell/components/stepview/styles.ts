@@ -1,0 +1,135 @@
+import {StyleSheet} from 'react-native';
+import {color} from '../../../../../../assets/colorConstant';
+import {CommonStyles} from '../../../../../../assets/commonStyles';
+import {moderateScaleVertical} from '../../../../../utils/responsiveSize';
+export const styles = StyleSheet.create({
+  headerImg: {
+    width: '92%',
+    margin: moderateScaleVertical(16),
+    borderRadius: moderateScaleVertical(20),
+  },
+  wrapper: {
+    backgroundColor: color.WHITE,
+    flex: 1,
+  },
+  bg: {
+    backgroundColor: color.S_PINK,
+    borderRadius: moderateScaleVertical(20),
+    margin: moderateScaleVertical(16),
+    minHeight: moderateScaleVertical(92),
+    maxHeight: moderateScaleVertical(92),
+  },
+  lineContainer: {
+    flexDirection: 'row',
+    marginTop: moderateScaleVertical(16),
+    justifyContent: 'center',
+    // justifyContent: 'space-between',
+  },
+  stepContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  redCircle: {
+    backgroundColor: color.P_PINK,
+    width: moderateScaleVertical(32),
+    justifyContent: 'center',
+    alignSelf: 'center',
+    height: moderateScaleVertical(32),
+    borderRadius: moderateScaleVertical(32),
+  },
+  inactiveCircle: {
+    backgroundColor: color.S_GRAY_1,
+    width: moderateScaleVertical(32),
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderColor: color.S_GRAY_2,
+    borderWidth: moderateScaleVertical(1),
+    height: moderateScaleVertical(32),
+    borderRadius: moderateScaleVertical(32),
+  },
+  editActiveCircle: {
+    backgroundColor: color.S_PINK,
+    width: moderateScaleVertical(32),
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderColor: color.P_PINK,
+    borderWidth: moderateScaleVertical(1),
+    height: moderateScaleVertical(32),
+    borderRadius: moderateScaleVertical(32),
+  },
+  editRedCircleText: {
+    ...CommonStyles.tpp_size18,
+    alignSelf: 'center',
+    fontWeight: '700',
+    lineHeight: moderateScaleVertical(24),
+    color: color.P_PINK,
+  },
+  redCircleText: {
+    ...CommonStyles.tpp_size18,
+    alignSelf: 'center',
+    fontWeight: '700',
+    lineHeight: moderateScaleVertical(24),
+    color: color.WHITE,
+  },
+  inactiveCircleText: {
+    ...CommonStyles.tpp_size18,
+    alignSelf: 'center',
+    fontWeight: '700',
+    lineHeight: moderateScaleVertical(24),
+    color: color.S_GRAY_3,
+  },
+
+  row: {
+    paddingStart: moderateScaleVertical(42),
+    paddingEnd: moderateScaleVertical(42),
+    paddingTop: moderateScaleVertical(16),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  lineNext: {
+    alignSelf: 'center',
+    color: color.P_PINK,
+    width: '70%',
+    marginBottom: moderateScaleVertical(6),
+    fontSize: moderateScaleVertical(23),
+  },
+  lineNoActive: {
+    alignSelf: 'center',
+    color: color.S_GRAY_3,
+    width: '70%',
+    marginBottom: moderateScaleVertical(6),
+    fontSize: moderateScaleVertical(23),
+  },
+  completeLine: {
+    height: moderateScaleVertical(2),
+    alignSelf: 'center',
+    marginTop: moderateScaleVertical(16),
+    backgroundColor: color.P_PINK,
+    fontSize: moderateScaleVertical(23),
+  },
+  inactiveLine: {
+    alignSelf: 'center',
+    color: color.S_GRAY_3,
+    marginBottom: moderateScaleVertical(6),
+    fontSize: moderateScaleVertical(23),
+  },
+  rowText: {
+    flexDirection: 'row',
+    marginTop: moderateScaleVertical(8),
+    paddingStart: moderateScaleVertical(16),
+    paddingEnd: moderateScaleVertical(16),
+    paddingBottom: moderateScaleVertical(16),
+    justifyContent: 'space-between',
+  },
+  lableActiveText: {
+    ...CommonStyles.robotoMedium14,
+    color: color.P_PINK,
+    lineHeight: moderateScaleVertical(20),
+  },
+  lableInactiveText: {
+    ...CommonStyles.robotoMedium14,
+    color: color.S_GRAY_4,
+    lineHeight: moderateScaleVertical(20),
+  },
+});
